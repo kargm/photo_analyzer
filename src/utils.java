@@ -12,7 +12,7 @@ public class utils {
 		weekday[7]="Saturday";
 		return weekday[day];
 	}
-	
+
 	public static String get_month_string(int month) {
 		String[] month_string = new String[13];
 		month_string[12] = "Unknown";
@@ -30,5 +30,4 @@ public class utils {
 		month_string[11] = "Dezember";
 		return month_string[month];
 	}
-	
 }
