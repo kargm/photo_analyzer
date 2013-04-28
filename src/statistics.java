@@ -6,5 +6,11 @@ public class statistics {
 	public HashMap<String, Integer> months_map = new HashMap<String, Integer>();
 	public HashMap<String, Integer> year_map = new HashMap<String, Integer>();
 	
-	// More to come
+	// More to come ...
+	
+	public String toString() {
+		return "Weekdays: " + days_map.toString() + "\n" +
+				"Months: " + months_map.toString() + "\n" +
+				"Years: " + year_map.toString();
+	}
 }

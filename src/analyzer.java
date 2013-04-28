@@ -11,7 +11,25 @@ import java.io.IOException;
 public class analyzer {
 
 	statistics stats = new statistics();
-	
+
+	public analyzer() {}
+
+	public statistics analyze(String folder) throws ImageProcessingException, IOException {
+		System.out.println("Analyzing folder: " + folder);
+		File[] files = new File(folder).listFiles();
+		statistics stats = getStatistics(files);		
+		return stats;
+	}
+
+	public void testKeyAndAdd(HashMap<String, Integer> hashmap, String key) {
+		if (hashmap.containsKey(key)) {
+			int count = (Integer) hashmap.get(key);
+			hashmap.put(key, count + 1);
+		} else {
+			hashmap.put(key, 1);
+		}
+	}
+
 	// Takes as input Array of files and returns statistics
 	private statistics getStatistics(File[] files) throws IOException {
 		try{
@@ -34,30 +52,6 @@ public class analyzer {
 			System.out.println("Unsupported file type. Skipping...");
 		}
 		return stats;
-	}
-
-	public analyzer() {}
-
-	public statistics analyze(String folder) throws ImageProcessingException, IOException {
-		System.out.println("Analyzing folder: " + folder);
-		File[] files = new File(folder).listFiles();
-		statistics stats = getStatistics(files);
-
-		// TODO: Remove output for Debugging
-		System.out.println("Weekdays: " + stats.days_map.toString());
-		System.out.println("Months: " + stats.months_map.toString());
-		System.out.println("Years: " + stats.year_map.toString());
-		
-		return stats;
-	}
-
-	public void testKeyAndAdd(HashMap<String, Integer> hashmap, String key) {
-		if (hashmap.containsKey(key)) {
-			int count = (Integer) hashmap.get(key);
-			hashmap.put(key, count + 1);
-		} else {
-			hashmap.put(key, 1);
-		}
 	}
 
 	public void analyseDates(ExifSubIFDDirectory dir, 

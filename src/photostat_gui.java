@@ -69,6 +69,7 @@ implements ActionListener {
 			try {
 				// Here analyze data and make call to visualization
 				statistics stats = a.analyze(folder_label.getText());
+				System.out.println(stats.toString());
 				
 			} catch (ImageProcessingException e1) {
 				e1.printStackTrace();
