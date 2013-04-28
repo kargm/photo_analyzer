@@ -10,12 +10,10 @@ import java.io.IOException;
 
 public class analyzer {
 
-	// Here the HashMaps will be stored which include image statistics
-	public HashMap<String, Integer> days_map = new HashMap<String, Integer>();
-	public HashMap<String, Integer> months_map = new HashMap<String, Integer>();
-	public HashMap<String, Integer> year_map = new HashMap<String, Integer>();
-
-	private void getStatistics(File[] files) throws IOException {
+	statistics stats = new statistics();
+	
+	// Takes as input Array of files and returns statistics
+	private statistics getStatistics(File[] files) throws IOException {
 		try{
 			for (File file : files) {
 				if (!file.getName().equals(".DS_Store")) { //.DS_Store file causes problems TODO: Find general solution for more problem-files
@@ -27,7 +25,7 @@ public class analyzer {
 						Metadata metadata = ImageMetadataReader.readMetadata(file);
 						// obtain the Exif directory
 						ExifSubIFDDirectory directory = metadata.getDirectory(ExifSubIFDDirectory.class);
-						days_map = analyseDates(directory, days_map, months_map, year_map);
+						analyseDates(directory, stats.days_map, stats.months_map, stats.year_map);
 					}
 				}
 			}
@@ -35,18 +33,22 @@ public class analyzer {
 		catch (ImageProcessingException e){
 			System.out.println("Unsupported file type. Skipping...");
 		}
+		return stats;
 	}
 
 	public analyzer() {}
 
-	public void analyze(String folder) throws ImageProcessingException, IOException {
+	public statistics analyze(String folder) throws ImageProcessingException, IOException {
 		System.out.println("Analyzing folder: " + folder);
 		File[] files = new File(folder).listFiles();
-		getStatistics(files);
+		statistics stats = getStatistics(files);
 
-		System.out.println("Weekdays: " + days_map.toString());
-		System.out.println("Months: " + months_map.toString());
-		System.out.println("Years: " + year_map.toString());
+		// TODO: Remove output for Debugging
+		System.out.println("Weekdays: " + stats.days_map.toString());
+		System.out.println("Months: " + stats.months_map.toString());
+		System.out.println("Years: " + stats.year_map.toString());
+		
+		return stats;
 	}
 
 	public void testKeyAndAdd(HashMap<String, Integer> hashmap, String key) {
@@ -58,7 +60,7 @@ public class analyzer {
 		}
 	}
 
-	public HashMap<String, Integer> analyseDates(ExifSubIFDDirectory dir, 
+	public void analyseDates(ExifSubIFDDirectory dir, 
 			HashMap<String, Integer> days_map, 
 			HashMap<String, Integer> months_map,
 			HashMap<String, Integer> year_map){
@@ -78,6 +80,5 @@ public class analyzer {
 			testKeyAndAdd(days_map, "Unknown");
 			testKeyAndAdd(months_map, "Unknown");
 		}
-		return days_map;
 	}
 }

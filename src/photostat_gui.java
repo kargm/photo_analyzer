@@ -46,8 +46,6 @@ implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		//int result;
-
 		if (e.getSource() == folder_button) {
 			chooser = new JFileChooser(); 
 			chooser.setCurrentDirectory(new java.io.File("."));
@@ -69,7 +67,9 @@ implements ActionListener {
 		else{
 			analyzer a = new analyzer();
 			try {
-				a.analyze(folder_label.getText());
+				// Here analyze data and make call to visualization
+				statistics stats = a.analyze(folder_label.getText());
+				
 			} catch (ImageProcessingException e1) {
 				e1.printStackTrace();
 			} catch (IOException e1) {
@@ -80,7 +80,7 @@ implements ActionListener {
 
 
 	public Dimension getPreferredSize(){
-		return new Dimension(400, 200);
+		return new Dimension(800, 400);
 	}
 
 	public static void main(String s[]) {
@@ -91,7 +91,6 @@ implements ActionListener {
 					public void windowClosing(WindowEvent e) {
 						System.exit(0);
 					}
-				}
-				);
+				});
 	}
 }
