@@ -10,10 +10,13 @@ import java.util.*;
 
 public class photostat_gui extends JFrame
    implements ActionListener {
-   private JButton folder_button;
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+private JButton folder_button;
    private JButton analyze_button;
    private JLabel folder_label;
-   private JButton button;
    private JPanel panel;
    private JFileChooser chooser;
    private String choosertitle;
@@ -25,7 +28,7 @@ public class photostat_gui extends JFrame
       setLayout(new BorderLayout(5,5));
 
       //Labels erzeugen
-      folder_label = new JLabel(".");
+      folder_label = new JLabel("/Users/kargm/Desktop/DCIM");
       //Label zentrieren
       folder_label.setHorizontalAlignment(JLabel.CENTER); 
       panel = new JPanel(new GridLayout(3,1));
